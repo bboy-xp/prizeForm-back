@@ -76,7 +76,12 @@ class HomeController extends Controller {
     //解决了用length充当num的bug
     const allUserData = await User.find();
     // console.log(allUserData);
-    const num = allUserData[0].num + 1;
+    let num;
+    if(allUserData.length == 0) {
+      num = 0;
+    }else {
+      num = allUserData[0].num + 1;
+    }
     //判断电话号是否存在
     const hasUser = await User.find({"phoneNum": data.phoneNum});
     if(hasUser.length == 0) {
