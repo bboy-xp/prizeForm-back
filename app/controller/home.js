@@ -9,23 +9,23 @@ class HomeController extends Controller {
     const data = readFileSync(resolve(__dirname, '../public/index.html'), 'utf8');
     this.ctx.body = data;
   }
-  // saveAdmin() {
-  //   const ctx = this.ctx;
-  //   const Admin = ctx.model.Admin;
-  //   const admin = new Admin({
-  //     account: 'admin',
-  //     password: '123',
-  //   });
-  //   admin.save();
-  //   ctx.body = "ok";
-  // }
+  saveAdmin() {
+    const ctx = this.ctx;
+    const Admin = ctx.model.Admin;
+    const admin = new Admin({
+      account: 'admin',
+      password: '123',
+    });
+    admin.save();
+    ctx.body = "ok";
+  }
   async adminLogin() {
     const ctx = this.ctx;
     const account = ctx.request.body.account;
     const password = ctx.request.body.password;
     // console.log(account, password);
     const Admin = ctx.model.Admin;
-    const findAdmin = await Admin.find({ account: account });
+    const findAdmin = await Admin.find({ account: account }).sort({ '_id': -1 });
     // console.log(findAdmin);
     if (findAdmin.length !== 0) {
       if (findAdmin[0].password === password) {
