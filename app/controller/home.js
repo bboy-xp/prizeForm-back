@@ -1,10 +1,13 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const { readFileSync } = require('fs');
+const { resolve } = require('path');
 
 class HomeController extends Controller {
   async index() {
-    this.ctx.body = 'hi, egg';
+    const data = readFileSync(resolve(__dirname, '../public/index.html'), 'utf8');
+    this.ctx.body = data;
   }
   // saveAdmin() {
   //   const ctx = this.ctx;
@@ -71,7 +74,7 @@ class HomeController extends Controller {
     const data = ctx.request.body;
     const User = ctx.model.User;
     //解决了用length充当num的bug
-    const allUserData = await User.find().sort({ 'num': -1 });
+    const allUserData = await User.find();
     // console.log(allUserData);
     const num = allUserData[0].num + 1;
     //判断电话号是否存在
@@ -100,7 +103,7 @@ class HomeController extends Controller {
   async getOrderTableData() {
     const ctx = this.ctx;
     const User = ctx.model.User;
-    const getAllUser = await User.find();
+    const getAllUser = await User.find().sort({ 'num': -1 });
     // console.log(getAllUser);
     ctx.body = getAllUser;
   }
