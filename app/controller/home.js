@@ -9,16 +9,16 @@ class HomeController extends Controller {
     const data = readFileSync(resolve(__dirname, '../public/index.html'), 'utf8');
     this.ctx.body = data;
   }
-  saveAdmin() {
-    const ctx = this.ctx;
-    const Admin = ctx.model.Admin;
-    const admin = new Admin({
-      account: 'admin',
-      password: '123',
-    });
-    await admin.save();
-    ctx.body = "ok";
-  }
+  // saveAdmin() {
+  //   const ctx = this.ctx;
+  //   const Admin = ctx.model.Admin;
+  //   const admin = new Admin({
+  //     account: 'admin',
+  //     password: '123',
+  //   });
+  //   await admin.save();
+  //   ctx.body = "ok";
+  // }
   async adminLogin() {
     const ctx = this.ctx;
     const account = ctx.request.body.account;
