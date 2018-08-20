@@ -16,7 +16,7 @@ class HomeController extends Controller {
       account: 'admin',
       password: '123',
     });
-    admin.save();
+    await admin.save();
     ctx.body = "ok";
   }
   async adminLogin() {
@@ -41,8 +41,19 @@ class HomeController extends Controller {
     const ctx = this.ctx;
     const Staff = ctx.model.Staff;
     //临时方法: 用表中的长度代替id
+    // const getAllStaff = await Staff.find();
+    // const id = getAllStaff.length;
+
+    //解决了用length充当id的bug
     const getAllStaff = await Staff.find();
-    const id = getAllStaff.length;
+    // console.log(allUserData);
+    let id;
+    if(getAllStaff.length == 0) {
+      id = 0;
+    }else {
+      id = getAllStaff[0].id + 1;
+    }
+
     const adminId = ctx.request.body.adminId;
     const staffId = ctx.request.body.staffId;
     const formUrl = "http://sxp.topsxp.top:7002/#/form?id=" + id + "&staffId=" + staffId;
@@ -56,7 +67,7 @@ class HomeController extends Controller {
         formUrl: formUrl,
         searchUrl: searchUrl
       })
-      staff.save();
+      await staff.save();
       ctx.body = "success";
     }else {
       ctx.body = "exist"
@@ -99,7 +110,7 @@ class HomeController extends Controller {
         isAccept: data.isAccept,
         num: num
       });
-      user.save();
+      await user.save();
       ctx.body = "success";
     }else {
       ctx.body = "exist";
