@@ -56,8 +56,8 @@ class HomeController extends Controller {
 
     const adminId = ctx.request.body.adminId;
     const staffId = ctx.request.body.staffId;
-    const formUrl = "http://sxp.topsxp.top:7002/#/form?id=" + id + "&staffId=" + staffId;
-    const searchUrl = "http://sxp.topsxp.top:7002/#/admin/staff/search?id=" + id + "&staffId=" + staffId;
+    const formUrl = "http://www.jnmum.cn:7002/#/form?id=" + id + "&staffId=" + staffId;
+    const searchUrl = "http://www.jnmum.cn:7002/#/admin/staff/search?id=" + id + "&staffId=" + staffId;
     const hasStaff = await Staff.find({staffId: staffId});
     if(hasStaff.length == 0) {
       const staff = new Staff({
